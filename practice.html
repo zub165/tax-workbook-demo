@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<title>Medical Practice — Tax Workbook Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+<body data-page="practice">
+<div class="tab-bar"><a href="index.html" class="">Dashboard</a><a href="personal.html" class="">Personal</a><a href="practice.html" class="active">Practice</a><a href="management.html" class="">Management</a><a href="real-estate.html" class="">Real Estate</a><a href="holdings.html" class="">Holdings</a><a href="foreign.html" class="">Foreign</a><a href="tax-tools.html" class="">Tax Tools</a></div>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">TX</div>
+      <div>
+        <h1>Tax Workbook Demo</h1>
+        <p>Sample data only — not real figures</p>
+      </div>
+    </div>
+    <div class="quick-btns">
+      <button class="qbtn inc" id="quickIncomeBtn" title="Add income (N)">＋ Income</button>
+      <button class="qbtn exp" id="quickExpenseBtn" title="Add expense (E)">＋ Expense</button>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="sidebar-foot">
+      <button class="btn success" id="excelBtnSide" style="width:100%">⬇ Download Excel</button>
+      <button class="btn sm" id="themeBtn" style="width:100%">🌙 Dark Mode</button>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">Medical Practice</h1>
+        <p id="pageSub">Demo Medical Practice LLC</p>
+      </div>
+      <div class="actions" id="actions"></div>
+    </header>
+    <div class="content" id="content"></div>
+  </main>
+</div>
+
+<div class="fab" id="fab">
+  <div class="fab-menu">
+    <button class="fab-item inc" data-quick="income">＋ Add Income</button>
+    <button class="fab-item exp" data-quick="expense">＋ Add Expense</button>
+  </div>
+  <button class="fab-main" id="fabMain" title="Quick add">＋</button>
+</div>
+
+<div class="modal-back" id="entryModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="entryTitle">Add Transaction</h3>
+      <button class="btn sm ghost" id="entryClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="type-toggle">
+        <button type="button" class="on inc" data-etype="income" id="etypeInc">↑ Income</button>
+        <button type="button" data-etype="expense" id="etypeExp">↓ Expense</button>
+      </div>
+      <div class="field amount-big">
+        <label>Amount ($)</label>
+        <input type="number" step="0.01" id="eAmount" placeholder="0.00" autofocus>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Date</label>
+          <input type="date" id="eDate">
+        </div>
+        <div class="field">
+          <label>Entity</label>
+          <select id="eEntity"></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Category</label>
+        <select id="eCategory"></select>
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <input type="text" id="eDesc" placeholder="Who / what / source">
+      </div>
+      <div class="field">
+        <label>Notes <span style="font-weight:500;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <input type="text" id="eNotes" placeholder="Tax flag, receipt #, etc.">
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="entryCancel">Cancel</button>
+      <button class="btn" id="entrySaveAnother">Save &amp; Add Another</button>
+      <button class="btn primary" id="entrySave">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="fileInput" accept=".json" style="display:none">
+<script src="app.js"></script>
+</body>
+</html>
